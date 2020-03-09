@@ -10,7 +10,7 @@ $ git clone https://github.com/sandai/30nichideosjisaku
 $ cd 30nichideosjisaku/bin
 $ sh install.sh
 ```
- 
+
  - 必要なツールをhomebrewでインストール
 ```sh
 $ brew cask install 0xED
@@ -24,7 +24,7 @@ $ brew install qemu
 ```
 
 ### helloos1の作成
-- さすがにDBデ格のは面倒だったので、サポートディスクのデータをコピーして実行
+- さすがにDBで書くのは面倒だったので、サポートディスクのデータをコピーして実行
 
 ### helloos2の作成
 - hellos2のバージョンは、まともな記述になっているのでこれは実際に写経した。
@@ -102,3 +102,73 @@ $ brew install qemu
 ### OS本体の書き込み
 - harib00e
 - habi00dからOSとなる部分を新規に作成し、haribote.imgのディスクイメージに保存する
+
+### ブートセクタからOS本体を起動させてみる
+- harib00f
+- habi00eを修正し、ipl.nasの最後の処理に0xc200番地へジャンプする処理を追加
+  - ディスクイメージの開始アドレスが0x004200でブートセクターの先頭アドレスが0x8000のため0x4200+0x8000=0xc200 であるので
+
+### OS本体の動作を確認してみる
+
+- harib00g
+
+- harib00eで作成したOSイメージに対して、画面モードの切り替えを実装
+
+- ビデオモード設定は以下の通り
+
+  - AH=0x00
+
+  - AL=モード
+
+    - 0x13　VGAグラフィックス 320x200x8bitカラー　バックドピクセル
+
+- 画面が真っ黒になったのでOK
+
+### 32ビットモードへの準備 
+
+- harib00h
+
+- ブート関連の情報として以下の情報を定数に追加（後々使うっぽい）
+
+  - 色数
+  - 横方向の解像度
+  - 縦方向の解像度
+  - グラフィックバッファの開始位置
+
+- キーボードのLED情報を取得する
+
+  
+
+### ついにC言語導入へ
+
+- haribo00i
+
+- この章の山場だと思う
+
+- `bootpack.c`を新規作成しOSのエントリポイントとする
+
+  - HariMainがエントリとなる（gocc1の仕様？）
+
+- 以下の手順でCのソースからコンパイルする
+
+  - `gocc1`を使って、`bootpack.c`から`bootpack.gas`を生成する
+  - `gas2nask`を使って、`bootpack.gas`を`bootpack.nas`に変換する
+  - `bootpack.nas`を`nask`でコンパイルし、`bootpack.obj`を生成する
+  - `obj2bim`を使って、`bootkpack.obj`から`bootpack.bim`を生成する
+  - 最後に`bim2hrb`を使って、`bootpack.bim`から`bootpack.hrb`を生成する
+  - 生成した`bootpack.hrb`と`asmhead.bin`をcatコマンドで連結させて `haribote.sys`を作成する
+
+- 上記の手順が踏めるように、`Makefile`をゴリゴリ修正した
+
+- 以前と同じように画面真っ黒になったのでOK
+
+  
+
+### とにかくHLTがしたい
+
+- harib00j
+- HLTの関数をアセンブリで記述し、gocc1のコンパイラにリンクするのみ
+
+​      
+
+​      
