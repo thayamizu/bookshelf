@@ -190,6 +190,7 @@ $ brew install qemu
 #### ポインタに挑戦
 
 - harib01bの内容をポインタを使った書き方に書き直す
+
 - これにあわせて、`naskfunc.nas`から`write_mem8`関数を削除
 
 - 実行結果は、harib01bと同じなので割愛
@@ -202,3 +203,8 @@ $ brew install qemu
 - 実行結果はharib01bと同じなので割愛
 
 
+
+#### ポインタの応用（２）
+
+- habi01cの内容をC言語の別の構文で書き換えるだけ
+- 実行結果はharib01bと同じなので割愛
