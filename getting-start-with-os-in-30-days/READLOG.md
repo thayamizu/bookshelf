@@ -186,3 +186,9 @@ $ brew install qemu
 - 実行結果
 
   ![](./images/04days/02.png)
+
+#### ポインタに挑戦
+
+- harib01bの内容をポインタを使った書き方に書き直す
+- これにあわせて、`naskfunc.nas`から`write_mem8`関数を削除
+- 実行結果は、harib01bと同じなので割愛
