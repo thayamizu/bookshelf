@@ -208,3 +208,25 @@ $ brew install qemu
 
 - habi01cの内容をC言語の別の構文で書き換えるだけ
 - 実行結果はharib01bと同じなので割愛
+
+
+#### 色番号設定
+
+- 現在使用している320x200の8bitカラーモードは、8bitしか使用できない。
+
+- この8bitの色番号に対応する色はプログラマで自由に決めてよい
+
+  - 色番号と色を対応づけたものを__パレット__と呼ぶ
+
+- ビデオDAコンバータのカラーパレットへのアクセス手順からカラーパレットの初期化と設定を行う
+
+- 新出命令
+
+  - `CLI`命令は、__Clear Interrupt Flag__で割り込みフラグをリセットする
+  - `STI`命令は、__Set Interrupt Flag__で割り込みフラグをセットする
+  - `PUSHFD`は、__Push Flag Double-Word__でフラグをDoubleWordでプッシュする
+  - `POPHFD`は、__POP Flag Double-Word__でフラグをDoubleWordでポップする
+
+  ![](./images/04days/03.png)
+
+  
