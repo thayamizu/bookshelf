@@ -241,3 +241,8 @@ $ brew install qemu
   
     ![](./images/04days/04.png)
 
+#### 今日の仕上げ
+
+- boxfillの呼び出しを少し調整し、Windowsのタスクバーっぽい表示に調整
+
+  ![](./images/04days/05.png)
