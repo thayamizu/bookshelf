@@ -229,4 +229,15 @@ $ brew install qemu
 
   ![](./images/04days/03.png)
 
+  #### 四角形を描く
   
+  - VRAMに矩形を書き込む計算は`OxaOOOO+x+y*320`
+  
+    - 0xa0000は開始番地で、y軸のサイズだけ異なるが基本的には同じ
+  
+  - VRAMに矩形を描画する関数`boxfill8`を`bootpack.c`に追加してビルド
+  
+  - 以下のようになった
+  
+    ![](./images/04days/04.png)
+
