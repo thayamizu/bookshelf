@@ -246,3 +246,11 @@ $ brew install qemu
 - boxfillの呼び出しを少し調整し、Windowsのタスクバーっぽい表示に調整
 
   ![](./images/04days/05.png)
+
+### 5日目 構造体と文字表示とGDT/IDT初期化
+
+#### 起動情報の受け取り
+
+- VRAMの位置情報と、スクリーンサイズをbootinfoから取得するように修正
+- 画面は、harib01hと同じのため省略
+
