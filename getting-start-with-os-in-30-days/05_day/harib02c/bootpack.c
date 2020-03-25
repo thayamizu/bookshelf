@@ -40,9 +40,9 @@ void HariMain(void)
     BootInfo *binfo = (BootInfo *)0x0ff0;
 
     init_palette();
-    xsize = binfo->scrnx;
-    ysize = binfo->scrny;
-    vram = binfo->vram;
+    xsize = (*binfo).scrnx;
+    ysize = (*binfo).scrny;
+    vram = (*binfo).vram;
 
     boxfill(vram, xsize, COL8_008484, 0, 0, xsize - 1, ysize - 29);
     boxfill(vram, xsize, COL8_C6C6C6, 0, ysize - 28, xsize - 1, ysize - 28);
