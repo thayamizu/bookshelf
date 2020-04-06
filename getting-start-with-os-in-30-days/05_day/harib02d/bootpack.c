@@ -25,7 +25,7 @@ void init_palette(void);
 void set_palette(int start, int end, unsigned char *rgb);
 
 void init_screen(char *vram, int x, int y);
-void boxfill(char *vram, int xsize, unsigned char, int x0, int y0, int x1, int y1);
+void boxfill8(char *vram, int xsize, unsigned char, int x0, int y0, int x1, int y1);
 void putfont8(char *vram, int xsize, int x, int y, char c, char *font);
 
 typedef struct _BootInfo
@@ -93,7 +93,7 @@ void set_palette(int start, int end, unsigned char *rgb)
     return;
 }
 
-void boxfill(char *vram, int xsize, unsigned char c, int x0, int y0, int x1, int y1)
+void boxfill8(char *vram, int xsize, unsigned char c, int x0, int y0, int x1, int y1)
 {
 
     int x, y;

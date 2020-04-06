@@ -55,7 +55,6 @@ VRAM	EQU		0x0ff8			; グラフィックバッファの開始番地
 
 ; プロテクトモード移行
 
-[INSTRSET "i486p"]				; 486の命令まで使いたいという記述
 
 		LGDT	[GDTR0]			; 暫定GDTを設定
 		MOV		EAX,CR0
@@ -131,9 +130,9 @@ memcpy:
 		RET
 ; memcpyはアドレスサイズプリフィクスを入れ忘れなければ、ストリング命令でも書ける
 
-		ALIGNB	16
+		ALIGNB	16, DB 0
 GDT0:
-		RESB	8				; ヌルセレクタ
+		TIMES	8 DB 0			; ヌルセレクタ
 		DW		0xffff,0x0000,0x9200,0x00cf	; 読み書き可能セグメント32bit
 		DW		0xffff,0x0000,0x9a28,0x0047	; 実行可能セグメント32bit（bootpack用）
 
@@ -142,5 +141,5 @@ GDTR0:
 		DW		8*3-1
 		DD		GDT0
 
-		ALIGNB	16
+		ALIGNB	16, DB 0
 bootpack:

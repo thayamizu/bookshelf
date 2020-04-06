@@ -23,7 +23,7 @@ CYLS	EQU		10
 		DD		0xffffffff
 		DB		"HELLO-OS   "
 		DB		"FAT12   "
-		RESB	18
+		TIMES 18 DB 0
 
 ;プログラム本体
 entry:
@@ -96,6 +96,5 @@ msg:
 		DB		0x0a
 		DB		0
 
-		RESB	0x7dfe-$
-
+		TIMES 0x1fe-($-$$) DB 0
 		DB		0x55, 0xaa

@@ -1,73 +1,47 @@
-TOOLPATH = ../../z_tools/
-INCPATH  = ../../z_tools/haribote/
-
 MAKE     = make -r
-CC1      = $(TOOLPATH)gocc1 -I$(INCPATH) -Os -Wall -quiet 
-NASK     = $(TOOLPATH)nask
-GAS2NASK = $(TOOLPATH)gas2nask -a
-OBJ2BIM  = $(TOOLPATH)obj2bim
-BIM2HRB  = $(TOOLPATH)bim2hrb
-RULEFILE = $(TOOLPATH)haribote/haribote.rul
-EDIMG    = $(TOOLPATH)edimg
-COPY     = cp
-DEL      = rm
+DEL      = rm -f
 
+# デフォルト動作
 
 default :
 	$(MAKE) img
 
+# ファイル生成規則
 
 ipl10.bin : ipl10.nas Makefile
-	$(NASK) ipl10.nas ipl10.bin ipl10.lst
+	nasm ipl10.nas -o ipl10.bin -l ipl10.lst
 
 asmhead.bin : asmhead.nas Makefile
-	$(NASK) asmhead.nas asmhead.bin asmhead.lst
+	nasm asmhead.nas -o asmhead.bin -l asmhead.lst
 
-bootpack.gas : bootpack.c Makefile
-	$(CC1) -o bootpack.gas bootpack.c
+naskfunc.o : naskfunc.nas Makefile          # naskfunc.nasのバイナリファイル作成
+	nasm -g -f elf naskfunc.nas -o naskfunc.o -l naskfunc.lst
 
-bootpack.nas : bootpack.gas Makefile
-	$(GAS2NASK) bootpack.gas bootpack.nas
+bootpack.hrb : bootpack.c hrb.ld naskfunc.o Makefile       # リンク，コンパイル
+	i386-elf-gcc -march=i486 -m32 -nostdlib -T hrb.ld -g bootpack.c naskfunc.o -o bootpack.hrb
 
-bootpack.obj : bootpack.nas Makefile
-	$(NASK) bootpack.nas bootpack.obj bootpack.lst
-
-naskfunc.obj : naskfunc.nas Makefile
-	$(NASK) naskfunc.nas naskfunc.obj naskfunc.lst
-
-bootpack.bim : bootpack.obj naskfunc.obj Makefile
-	$(OBJ2BIM) @$(RULEFILE) out:bootpack.bim stack:3136k map:bootpack.map \
-		bootpack.obj naskfunc.obj
-# 3MB+64KB=3136KB
-
-bootpack.hrb : bootpack.bim Makefile
-	$(BIM2HRB) bootpack.bim bootpack.hrb 0
 haribote.sys : asmhead.bin bootpack.hrb Makefile
 	cat asmhead.bin bootpack.hrb > haribote.sys
 
 haribote.img : ipl10.bin haribote.sys Makefile
-	$(EDIMG)   imgin:../../z_tools/fdimg0at.tek \
-		wbinimg src:ipl10.bin len:512 from:0 to:0 \
-		copy from:haribote.sys to:@: \
-		imgout:haribote.img
+	mformat -f 1440 -C -B ipl10.bin -i haribote.img ::
+	mcopy -i haribote.img haribote.sys ::
 
-# �C���[�W����
+# コマンド
+
 img :
 	$(MAKE) haribote.img
 
 run :
-	qemu-system-i386 -fda  ./haribote.img
+	$(MAKE) img
+	qemu-system-i386 -drive file=haribote.img,format=raw,if=floppy -boot a
 
 clean :
 	-$(DEL) *.bin
 	-$(DEL) *.lst
-	-$(DEL) *.gas
-	-$(DEL) *.obj
-	-$(DEL) bootpack.nas
-	-$(DEL) bootpack.map
-	-$(DEL) bootpack.bim
-	-$(DEL) bootpack.hrb
-	-$(DEL) haribote.sys
+	-$(DEL) *.o
+	-$(DEL) *.sys
+	-$(DEL) *.hrb
 
 src_only :
 	$(MAKE) clean

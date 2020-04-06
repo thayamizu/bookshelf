@@ -274,3 +274,39 @@ $ brew install qemu
 - harib02d
 - harib02cで作成した画面表示をinit_screen関数として関数に切り出し
 - フォントを表示する関数`putfont8`関数を作成
+- 本筋と外れるが、macOS 10.15に更新してしまったので、32bitアプリケーションが動かなくなってしまった。
+   - nask, gocc1, edimageが使えなくなった。
+   - [『30日でできる！OS自作入門』を macOS Catalina で実行する](https://qiita.com/noanoa07/items/8828c37c2e286522c7ee)を参照して、一般的なアプリケーションを用いて再構築した。
+      - brewを使ってnasmとmtools、i386-elf-gccをインストール
+      - 上記の記事とツールを提供してくれた人に感謝
+```sh
+$brew install nasm
+$brew install mtools
+```
+
+   - 標準のHomebrewの環境では、i386-elf-gccの代わりに、x86_64-elf-gccが提供されているが、これを用いてリンクとコンパイルを実行するとエラーが発生する。
+
+```sh
+❯ make
+make -r img
+make -r haribote.img
+x86_64-elf-gcc -march=i486 -m32 -nostdlib -T hrb.ld -g bootpack.c naskfunc.o -o bootpack.hrb
+/usr/local/opt/x86_64-elf-binutils/bin/x86_64-elf-ld: i386 architecture of input file `/var/folders/z0/45fcm1sj5ll87b57m00xgb4w0000gn/T//ccYaGdlV.o' is incompatible with i386:x86-64 output
+/usr/local/opt/x86_64-elf-binutils/bin/x86_64-elf-ld: i386 architecture of input file `naskfunc.o' is incompatible with i386:x86-64 output
+collect2: error: ld returned 1 exit status
+make[2]: *** [bootpack.hrb] Error 1
+make[1]: *** [img] Error 2
+make: *** [default] Error 2
+```
+  - なので、[StakcOverflowの記事](https://stackoverflow.com/questions/40655204/cant-brew-install-gcci386-elf-gcc)を参考に、brew tapして、i386-elf-gccをインストールする
+
+```sh
+$brew tap nativeos/si386-elf-toolchain 
+$brew install i386-elf-binutils i386-elf-gcc
+```
+
+ - これでビルドすると次の結果が得られる。
+ ![](./images/05days/01.png)
+
+#### フォントを増やしたい
+- harib02e
