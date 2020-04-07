@@ -310,3 +310,10 @@ $brew install i386-elf-binutils i386-elf-gcc
 
 #### フォントを増やしたい
 - harib02e
+- OSASKのサイトからフォント作成のプログラムがWikiに提供されていたので、これをコンパイルして`makefont`を作成
+- 作成したmakefontプログラムと`hankaku.txt`からバイナリデータを生成した。
+- 生成したバイナリデータは`binutils`に含まれている`objcopy`を使ってobjファイルに変換し、変換したobjファイルをbootpack.cのオブジェクトファイルとリンクすることで、fontデータの埋め込みを行った。
+    - binutils/objcopyの使い方は以下の記事を参考にした。
+    - [普通のやつらの下を行け: objcopy で実行ファイルにデータを埋め込む](http://0xcc.net/blog/archives/000076.html)
+- 実行結果は以下の通り
+  ![](./images/05days/02.png)
