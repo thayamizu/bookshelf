@@ -317,3 +317,20 @@ $brew install i386-elf-binutils i386-elf-gcc
     - [普通のやつらの下を行け: objcopy で実行ファイルにデータを埋め込む](http://0xcc.net/blog/archives/000076.html)
 - 実行結果は以下の通り
   ![](./images/05days/02.png)
+
+
+#### 文字列を表示したい
+- harib02f
+- harib02eで作成した文字表示の部分をまとめて、文字列を表示する関数`putfont8_asc`を記述するのみ
+- 実行結果は、前回と同様のなので省略する
+
+#### 変数の値の表示
+- harib02g
+- `sprintf`で作成した文字列を、先に作った`putfont8_asc`に渡すだけ・・のはずだが、macOS上で`i386-elf-gcc`を使ってクロスコンパイルしているせいか、リンク時に`crt0.o`がないとエラーメッセージと`-lc`が見つからないエラーが表示される。
+  - [このあたり](http://www.ertl.jp/~takayuki/readings/c/no03.html)を参考にすると`crt0.o`自体はmainを呼び出すためのもののよう
+  - 同様に`-lc`が見つからないのもlibcがないからと思われる（ビルドしてないし）
+  - なので、`crt0.c`を自作してlibcをビルドしてリンクすれば動くと思われるが、必要なのはsprintfだけなので今回は[ここの記事のコード](http://bttb.s1.valueserver.jp/wordpress/blog/2017/12/17/makeos-5-2/)を拝借させいていただいた
+  - 今後困ることも考えられるので、また環境を再構築した方がいいかもしれない。
+- 実行結果は次の通り
+
+![](images/05days/03.png)
