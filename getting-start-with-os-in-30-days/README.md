@@ -334,3 +334,11 @@ $brew install i386-elf-binutils i386-elf-gcc
 - 実行結果は次の通り
 
 ![](images/05days/03.png)
+
+#### マウスカーソルも描いてみよう
+- harib02h
+- マウスカーソルを初期化する`init_mouse_cursor8`関数と矩形を描画する`putblock8_8`関数を実装する
+- `HariMain`の実装を`init_mouse_cursor8`と`putblock8_8`に書き換える
+- ここまで出来ると次の結果が得られる。
+
+![](images/05days/04.png)
