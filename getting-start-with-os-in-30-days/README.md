@@ -478,3 +478,13 @@ $brew install i386-elf-binutils i386-elf-gcc
 ### FIFOバッファを改良する
 - harib04d
 - harib04cで作ったFIFOバッファを改良し、リングバッファとして再実装。
+
+### FIFOバッファを整理する
+- harib04e
+- FIFOの実装を独立したクラスとして実装
+
+### さぁマウスだ
+- harib04f
+- マウス制御回路とマウスを初期化して、マウスの割り込みイベントを有効化する
+
+![](images/07days/03.png)
