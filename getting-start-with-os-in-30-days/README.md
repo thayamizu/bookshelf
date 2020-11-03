@@ -510,3 +510,8 @@ $brew install i386-elf-binutils i386-elf-gcc
 - これを画面上に数値を表示すると次のようになる。
 
 ![](images/08days/01.png)
+
+
+### ちょっと整理
+- harib05b
+- マウス周りのコードを構造体や関数などに整理
