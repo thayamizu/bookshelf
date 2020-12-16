@@ -137,7 +137,7 @@ void putfont8_asc(char *vram, int xsize, int x, int y, char c, char *s)
 {
     for (; *s != 0x00; s++)
     {
-        putfont8(vram, xsize, x, y, c, _binary_hankaku_bin_start + (*s) * 16);
+        putfont8(vram, xsize, x, y, c, _binary_build_hankaku_bin_start + (*s) * 16);
         x += 8;
     }
 

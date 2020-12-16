@@ -24,7 +24,7 @@
 /**
  * 埋め込みフォントデータのエントリ
  */
-extern char _binary_hankaku_bin_start[];
+extern char _binary_build_hankaku_bin_start[];
 
 /**
  * カラーパレットを初期化します。
