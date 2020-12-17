@@ -557,3 +557,58 @@ $brew install i386-elf-binutils i386-elf-gcc
 ```
 
 8章終わり。次からはメモリ管理
+
+## 9日目 メモリ管理
+
+### ソースの整理
+- bootpack.h/bootpack.cに書いていたマウスとキーボードの処理をそれぞれ独立したファイルにする
+  - `keyboard.c` `keyboard.h` `mouse.c` `mouse.h`
+- ついでにディレクトリ構造を変更しMakefileのルールを変更した
+- ディレクトリ構造は次の通り
+
+```sh
+$ tree
+├── Makefile
+├── build
+├── out
+└── src
+    ├── asm
+    │   ├── asmhead.nas
+    │   ├── hrb.ld
+    │   ├── ipl10.nas
+    │   └── naskfunc.nas
+    ├── assets
+    │   └── hankaku.txt
+    ├── bootpack.c
+    ├── bootpack.h
+    ├── descriptors.c
+    ├── descriptors.h
+    ├── fifo.c
+    ├── fifo.h
+    ├── graphic.c
+    ├── graphic.h
+    ├── keyboard.c
+    ├── keyboard.h
+    ├── mouse.c
+    ├── mouse.h
+    ├── my_sprintf.c
+    ├── my_sprintf.h
+    ├── pic.c
+    └── pic.h
+```
+
+- src直下に`.c`ファイル、src/asm以下に`.nas`ファイル及び`.ld`ファイル、src/assets以下に`hankaku.txt`を置いた
+- ディレクトリ構造を変更すると次のようにリンカが`_binary_hankaku_bin_start`がないとエラーをはくので調べると`hankaku.o`のエントリ名に、中間ファイル出力先パスが追加されていた
+  - OxEDでfont.oのバイナリの中を調べた。リンカまわりのデバッグは辛い
+
+```
+/usr/local/Cellar/i386-elf-gcc/9.2.0/lib/gcc/i386-elf/9.2.0/../../../../i386-elf/bin/ld: bootpack.c:(.text+0x8c): undefined reference to `init_mouse'
+/usr/local/Cellar/i386-elf-gcc/9.2.0/lib/gcc/i386-elf/9.2.0/../../../../i386-elf/bin/ld: bootpack.c:(.text+0x174): undefined reference to `enable_mouse'
+/usr/local/Cellar/i386-elf-gcc/9.2.0/lib/gcc/i386-elf/9.2.0/../../../../i386-elf/bin/ld: bootpack.c:(.text+0x21d): undefined reference to `decode_mouse'
+/usr/local/Cellar/i386-elf-gcc/9.2.0/lib/gcc/i386-elf/9.2.0/../../../../i386-elf/bin/ld: build/graphic.o: in function `putfont8_asc':
+graphic.c:(.text+0x446): undefined reference to `_binary_hankaku_bin_start'
+```
+
+![](images/09days/01.png)
+
+- フォントデータのエントリ名を新しい名前に差し替えてビルドすると08日の実行結果が再現できたのでソース整理は完了
