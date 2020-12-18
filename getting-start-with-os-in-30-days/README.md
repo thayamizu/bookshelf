@@ -612,3 +612,33 @@ graphic.c:(.text+0x446): undefined reference to `_binary_hankaku_bin_start'
 ![](images/09days/01.png)
 
 - フォントデータのエントリ名を新しい名前に差し替えてビルドすると08日の実行結果が再現できたのでソース整理は完了
+
+### メモリ容量チェック
+- harib06b / harib06c
+- メモリテストの関数`memtest`と`memtest_sub`を作成
+- 486系チップは、キャッシュレジスタがあるので、486系のときキャッシュを無効にできるよう、キャッシュレジスタへの書き込みと読み込みを行う関数をアセンブリで追加
+- プログラムをコンパイルして、実行すると128MBと表示された
+   - 本書では3072MBと表示されることになっている。
+   - harib06cはこれを修正
+
+- 128MBはqemuのデフォルトのメモリ容量ではなかろうかと考え、`-m`オプションで __32M__ を指定してやると 32MBと表示された。
+
+```sh
+	qemu-system-i386 -drive file=$(OUTDIR)haribote.img,format=raw,if=floppy -boot a -m 2048M
+```
+
+![](images/09days/02.png)
+
+
+- 同様に、`-m`オプションで __2048M__ を指定してやると 2048MBと表示された。
+
+
+```sh
+	qemu-system-i386 -drive file=$(OUTDIR)haribote.img,format=raw,if=floppy -boot a -m 2048M
+```
+
+![](images/09days/03.png)
+
+上記の実行結果からこれでおそらく正常に動作しているのではないかと思う。本書ではztoolsとWindowsの環境を想定しているが、実行環境はmacOSとqemuおよびi386-elf-gccなのでコンパイル時に施される最適化の違い（オプションの違いかも）からこの様になっているものだと思う。
+
+次の章は、最適化による不具合の修正なので、次の節はスキップする（読むだけ）
