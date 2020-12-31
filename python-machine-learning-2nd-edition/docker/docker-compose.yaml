@@ -1,0 +1,12 @@
+version: "3"
+services:
+  # ---- Jupyter Notebook
+  notebook:
+    image: jupyter/datascience-notebook
+    container_name: docker-jupyter
+    env_file:
+      - ./base.env
+    ports:
+      - 8081:8888
+    volumes:
+      - ../src:/home/jovyan/work
