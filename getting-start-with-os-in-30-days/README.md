@@ -652,3 +652,8 @@ graphic.c:(.text+0x446): undefined reference to `_binary_hankaku_bin_start'
 ![](images/09days/04.png)
 
 本書の期待どおりの出力が確認できた。
+
+## 10日目 重ね合わせ処理
+### メモリ管理の続き
+- メモリ管理を1バイト単位ではなく、4KB単位で行う、`memman_free_4k`と`memman_alloc_4k`を実装する。
+-  切り上げ・切り捨ての話は、プログラミングの初歩的なテクニックとなるのでスキップした。
