@@ -657,3 +657,9 @@ graphic.c:(.text+0x446): undefined reference to `_binary_hankaku_bin_start'
 ### メモリ管理の続き
 - メモリ管理を1バイト単位ではなく、4KB単位で行う、`memman_free_4k`と`memman_alloc_4k`を実装する。
 -  切り上げ・切り捨ての話は、プログラミングの初歩的なテクニックとなるのでスキップした。
+
+### 重ね合わせ処理
+- 重ね合わせ処理を行うための関数群を`sheet.h`および`sheet.c`に追加
+- 描画方法をsheetへするように`bootpack.c`を修正
+- 得られた画像は次のようになる。
+![](images/10days/01.png)
