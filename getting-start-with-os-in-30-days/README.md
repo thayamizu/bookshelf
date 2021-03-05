@@ -663,3 +663,5 @@ graphic.c:(.text+0x446): undefined reference to `_binary_hankaku_bin_start'
 - 描画方法をsheetへするように`bootpack.c`を修正
 - 得られた画像は次のようになる。
 ![](images/10days/01.png)
+
+- `sheet_refresh`を改善して描画を高速化。表示内容に変更はないので、画像は省略。
