@@ -672,3 +672,8 @@ graphic.c:(.text+0x446): undefined reference to `_binary_hankaku_bin_start'
 - マウスカーソルをを画面外まで移動できるように修正する
 - 本書の指示通りに修正をすると、不具合が発生するのでつぎのharib08bで修正をする
 ![](images/11days/01.png)
+
+### 画面外サポート
+- harib08b
+- refreshsub関数を書き換えて、画面街を書き換えないようにする
+![](images/11days/02.png)
