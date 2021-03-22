@@ -665,3 +665,10 @@ graphic.c:(.text+0x446): undefined reference to `_binary_hankaku_bin_start'
 ![](images/10days/01.png)
 
 - `sheet_refresh`を改善して描画を高速化。表示内容に変更はないので、画像は省略。
+
+## 11日目 ついにウインドウ
+### もっとマウス
+- harib08a
+- マウスカーソルをを画面外まで移動できるように修正する
+- 本書の指示通りに修正をすると、不具合が発生するのでつぎのharib08bで修正をする
+![](images/11days/01.png)
