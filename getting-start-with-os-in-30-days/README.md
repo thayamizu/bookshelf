@@ -677,3 +677,7 @@ graphic.c:(.text+0x446): undefined reference to `_binary_hankaku_bin_start'
 - harib08b
 - refreshsub関数を書き換えて、画面街を書き換えないようにする
 ![](images/11days/02.png)
+
+### shtctlの省略してい
+- harib08c
+- いくつかの関数からshtctlの省略して利用できるようにする。
