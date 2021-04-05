@@ -681,3 +681,9 @@ graphic.c:(.text+0x446): undefined reference to `_binary_hankaku_bin_start'
 ### shtctlの省略してい
 - harib08c
 - いくつかの関数からshtctlの省略して利用できるようにする。
+
+### ウインドウを出してみよう
+- harib08d
+- ウインドウを出す。
+
+![](images/11days/03.png)
