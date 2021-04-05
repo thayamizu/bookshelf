@@ -687,3 +687,9 @@ graphic.c:(.text+0x446): undefined reference to `_binary_hankaku_bin_start'
 - ウインドウを出す。
 
 ![](images/11days/03.png)
+
+### すこし遊んで見る
+- harib08e
+- ウインドウとマウスのシートの順序を入れ替えて描画する。
+
+![](images/11days/04.png)
