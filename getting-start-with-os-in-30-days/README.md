@@ -693,3 +693,9 @@ graphic.c:(.text+0x446): undefined reference to `_binary_hankaku_bin_start'
 - ウインドウとマウスのシートの順序を入れ替えて描画する。
 
 ![](images/11days/04.png)
+
+### 高速カウンタだぁ
+- harib08f
+- カウンタを表示させる。
+
+![](images/11days/05.png)
