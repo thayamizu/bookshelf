@@ -29,3 +29,7 @@ my reading log.
 [Pythonからはじめる数学入門](https://www.oreilly.co.jp/books/9784873117683/)
 
 [PythonによるWebスクレイピング](https://www.oreilly.co.jp/books/9784873118710/)
+
+[JavaScript モダンプログラミング完全ガイド](https://book.impress.co.jp/books/1120101055)
+
+[プログラミング TypeScript](https://www.oreilly.co.jp/books/9784873119045/)
