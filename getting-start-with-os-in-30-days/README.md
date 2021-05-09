@@ -703,3 +703,8 @@ graphic.c:(.text+0x446): undefined reference to `_binary_hankaku_bin_start'
 ### チラチラ解消（１）
 - harib08g
 - 見た目に変更はないのでスクショは省略
+
+
+### チラチラ解消（2）
+- harib08h
+- 見た目に変更はないのでスクショは省略
