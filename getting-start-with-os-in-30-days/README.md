@@ -699,3 +699,7 @@ graphic.c:(.text+0x446): undefined reference to `_binary_hankaku_bin_start'
 - カウンタを表示させる。
 
 ![](images/11days/05.png)
+
+### チラチラ解消（１）
+- harib08g
+- 見た目に変更はないのでスクショは省略
