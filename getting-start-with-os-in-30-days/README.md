@@ -708,3 +708,16 @@ graphic.c:(.text+0x446): undefined reference to `_binary_hankaku_bin_start'
 ### チラチラ解消（2）
 - harib08h
 - 見た目に変更はないのでスクショは省略
+
+## 12日目 タイマ-1
+PIT(Programmable Interval Timer)を利用する
+
+PITを利用するためには、IRQ0の割り込み周期を変更する。
+- AL=0x34; OUT(0x43, AL)
+- AL=割り込み周期の下位8bit; OUT(0x40, AL)
+- AL=割り込み周期の上位8bit; OUT(0x40, AL)
+とOUT命令を3回実行することになる
+
+とりあえず、ここまで実装したものが12_day/harib09a
+
+![](images/12days/01.png)
